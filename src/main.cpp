@@ -4,6 +4,8 @@
 
 #define LED 13
 
+// 19121 test
+
 // Sensirion(dataPin, sclkPin, address, noholdmaster);
 // SHT1x address = 0x00  SHT2x address = 0x40  SHT3x address = 0x44 or 0x45
 Sensirion sht75 = Sensirion(9, 10);
