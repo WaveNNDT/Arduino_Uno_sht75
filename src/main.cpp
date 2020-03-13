@@ -4,13 +4,15 @@
 
 #define LED 13
 
+// 19121 test
+
 // Sensirion(dataPin, sclkPin, address, noholdmaster);
 // SHT1x address = 0x00  SHT2x address = 0x40  SHT3x address = 0x44 or 0x45
 Sensirion sht75 = Sensirion(9, 10);
 
 
-float sht85_Temp;
-float sht85_RH;
+float sht75_Temp;
+float sht75_RH;
 float dewpoint;
 float humidity35oC;
 int ret, mret=1234;
@@ -54,7 +56,7 @@ void setup() {
 
   Serial.begin(9600);
   delay(1000);
-  Serial.println("Start SHT85 ");
+  Serial.println("Start SHT75 ");
 
   delayTime = 1000;
 }
@@ -64,23 +66,23 @@ void loop() {
   digitalWrite(LED,(((millis()>>6)&0x5)==0));   // double flash led rapidly
 
   // all parameters are optionals if user don't need it
-  logError(ret = sht75.measure(&sht85_Temp, &sht85_RH, &dewpoint, 37, &humidity35oC)); // Measurement
+  logError(ret = sht75.measure(&sht75_Temp, &sht75_RH, &dewpoint, 37, &humidity35oC)); // Measurement
   
   if (ret == S_Meas_Rdy) // A new measurement is available
   {    
     // Serial.println();
     // Serial.print("Temperature = ");   
-    // Serial.print(sht85_Temp);
+    // Serial.print(sht75_Temp);
     // Serial.print(" oC, Humidity = ");  
-    // Serial.print(sht85_RH);
+    // Serial.print(sht75_RH);
     // Serial.print(" %, Dewpoint = ");  
     // Serial.print(dewpoint);
     // Serial.print(" oC, Humidity @37oC = ");
     // Serial.print(humidity35oC);
     // Serial.print(" % ");  
 
-    jsonDoc["Temperature_SHT85"] = sht85_Temp;
-    jsonDoc["RH_SHT85"] = sht85_RH;
+    jsonDoc["Temperature_SHT75"] = sht75_Temp;
+    jsonDoc["RH_SHT75"] = sht75_RH;
 
     serializeJson(jsonDoc, Serial);
     Serial.println();
